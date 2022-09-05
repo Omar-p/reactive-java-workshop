@@ -48,6 +48,21 @@ public class Exercise1 {
         .filter(user -> ids.contains(user.getId()))
         .map(User::getFirstName)
         .forEach(System.out::println);
+
+    // other solutions
+    System.out.println("\t\t +1[preferred]");
+    StreamSources.userStream()
+        .filter(u ->
+            StreamSources.intNumbersStream().anyMatch(i -> i == u.getId()))
+        .map(User::getFirstName)
+        .forEach(System.out::println);
+
+    System.out.println("\t\t +2");
+    StreamSources.intNumbersStream()
+        .flatMap(id -> StreamSources.userStream().filter(user -> user.getId() == id))
+        .map(User::getFirstName)
+        .forEach(System.out::println);
+
   }
 
 }
